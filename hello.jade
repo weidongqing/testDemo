@@ -1,0 +1,43 @@
+doctype html
+html
+    head
+        title Hello Jade
+    body
+        //单行注释
+        h1 Welcome To Jade Cook Book For Chinese
+        //
+         块级注释
+         
+        - var attrs = {'color': 'red', 'font-size': '10px'};
+        a(style=attrs)
+        a(style={'color': 'red', 'font-size': '10px'})  
+        a#comit.commit(style={color:"red"})
+        - var classes = ['commit','first'];
+        a(class=classes)
+        
+        //for和each用法相同
+        ul
+          each val, index in ['zero', 'one', 'two']
+              li= index + ': ' + val
+        ul
+          for val, index in {1:'one',2:'two',3:'three'}
+              li= index + ': ' + val
+        //while用法
+        - var n = 0
+        ul
+          while n < 4
+               li= n++
+               
+        //mixin声明和调用
+        //无参数
+        mixin list
+             ul
+               li foo
+               li bar
+               li baz
+        +list
+        //有参数,注意等号与左值之间不能有空格
+        mixin student(name)
+             h1= name
+             h1 #{name}
+        +student('robin')

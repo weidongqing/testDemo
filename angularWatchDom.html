@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>angular watch dom</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        body {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-app="app">
+<div ng-controller="testCtrl">
+    <button class="btn btn-primary" ng-click="toggle()">toggle</button>
+    <div id="test"
+         style="height: 50px;width: auto;border: 1px solid #000;background: black;color: white;margin-top: 50px;"
+         test-dom="">
+        测试监控dom
+    </div>
+</div>
+<script>
+    angular.module('app', ['ng'])
+        .controller('testCtrl', function ($scope, $timeout) {
+            $scope.toggle = function () {
+                if ($("#test").css('height') == '50px') {
+                    $("#test").css('height', '100px')
+                } else {
+                    $("#test").css('height', '50px')
+                }
+            };
+
+        })
+        .directive('testDom', function () {
+            return {
+                restrict: 'A',
+                link: function ($scope, $el, $attrs) {
+                    $scope.$watch(
+                        function () {
+                            return $el[0].style.height;
+                        },
+                        function (newValue, oldValue) {
+                            if (newValue == '100px') {
+                                $el[0].style['background'] = 'red';
+                            } else {
+                                $el[0].style['background'] = 'black';
+                            }
+                        }
+                    );
+                }
+            }
+        })
+</script>
+</body>
+</html>

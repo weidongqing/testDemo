@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6 demo</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+<div>
+
+</div>
+<script>
+const arr1 = ['de','edw','dew'];
+const arr2 = [...arr1];
+console.log(arr2);
+const [first, second] = arr1;
+console.log(second);
+(() =>{
+  console.log('立即执行函数');
+})();
+let regex = new RegExp("ab+c");
+console.log(regex);
+let str = 'test';
+console.log(str.includes('te'));
+
+console.log([1, 2, 3])
+console.log(...[1, 2, 3])
+console.log(1, ...[2, 3, 4], 5)
+
+function abs(x) {
+  if (typeof x !== 'number'){
+    // error
+    throw new Error('Not a number')
+    // you can also throw an error like this: throw 'Not a number'
+    //warn
+    // console.warn('Not a number')
+  }
+  if (x>=0){
+    return x;
+  }else {
+    return -x;
+  }
+}
+abs('test')
+</script>
+</body>
+</html>

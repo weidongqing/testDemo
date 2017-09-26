@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" http-equiv="Access-Control-Allow-Origin" content="*">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title>测试h5单页面上下滑动</title>
+  <script src="http://cdn.bootcss.com/zepto/1.1.4/zepto.js"></script>
+  <script src="js/pageSlider.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .section {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #FFF;
+    }
+
+    .section.current {
+      display: inline-block;
+    }
+
+    .section.next {
+      display: inline-block;
+      z-index: 2;
+    }
+
+    .section.prev {
+      display: inline-block;
+      z-index: 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="section sec1">
+    <img src="image/1.jpg" style="width: 100%;height: auto;float: left;" alt="">
+  </div>
+  <div class="section sec2">
+    <img src="image/2.jpg" alt="">
+  </div>
+  <div class="section sec3">
+    <img src="image/3.jpg" alt="">
+  </div>
+  <div class="section sec4">
+    <img src="image/4.jpg" alt="">
+  </div>
+  <div class="section sec5">
+    <img src="image/5.jpg" alt="">
+  </div>
+  <div class="section sec6">
+    <img src="image/6.jpg" alt="">
+  </div>
+
+  <script>
+    $(function() {
+      var pageSlider = PageSlider.case();
+    });
+  </script>
+</body>
+
+</html>

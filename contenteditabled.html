@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body ng-app="app">
+<div ng-controller="testCtrl" style="text-align: center">
+    <div ng-repeat="i in keys">
+        <span contenteditable data-directive ng-change="test($index,i)" ng-model="i">{{i}}</span>
+    </div>
+
+
+</div>
+
+
+<script>
+    angular.module('app', ['ng'])
+        .controller('testCtrl', function ($scope) {
+            $scope.editable=false;
+            $scope.keys = ['a b c', 'e fg g', 'test case'];
+            $scope.test = function (index, value) {
+                $scope.keys.splice(index, 1, value);
+                console.log($scope.keys);
+            };
+        })
+        .directive("directive", function () {
+            return {
+                restrict: "A",
+                require: "ngModel",
+                link: function (scope, element, attrs, ngModel) {
+
+                    function read() {
+                        // view -> model
+                        var html = element.html();
+                        html = html.replace(/&nbsp;/g, "\u00a0");
+                        ngModel.$setViewValue(html);
+                    }
+
+                    // model -> view
+                    ngModel.$render = function () {
+                        element.html(ngModel.$viewValue || "");
+                    };
+
+                    element.bind("blur", function () {
+                        scope.$apply(read);
+                    });
+                    element.bind("keydown keypress", function (event) {
+                        if (event.which === 13) {
+                            this.blur();
+                            event.preventDefault();
+                        }
+                    });
+                }
+            };
+        });
+</script>
+</body>
+</html>

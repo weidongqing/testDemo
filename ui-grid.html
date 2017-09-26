@@ -1,0 +1,47 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <script src="js/angular.js"></script>
+    <script src="js/ui-grid.min.js"></script>
+    <link type="text/css" href="css/ui-grid.min.css">
+    <style>
+        .grid {
+            width: 600px;
+            height: 450px;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="MainCtrl">
+    <div ui-grid="gridOptions" ui-grid-edit class="grid"></div>
+</div>
+<script>
+    var app = angular.module('app', [ 'ui.grid']);
+
+    app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.gridOptions = {};
+
+        $scope.gridOptions.columnDefs = [
+            { name: 'AppName', displayName: 'AppName', width: '20%' },
+            { name: 'FileName', displayName: 'FileName'},
+            { name: 'FileSize', displayName: 'FileSize', width: '30%' }
+        ];
+
+        $scope.gridOptions.onRegisterApi = function(gridApi){
+            //set gridApi on scope
+            $scope.gridApi = gridApi;
+
+        };
+
+        $http.get('data/data.json')
+            .success(function(data) {
+                console.log(data);
+                $scope.gridOptions.data = data.data;
+            });
+
+
+    }])
+
+</script>
+</body>
+</html>

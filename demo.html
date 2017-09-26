@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/ui-bootstrap-tpls.js"></script>
+</head>
+<body ng-app="app">
+<div ng-controller="testCtrl">
+
+    <!--<form name="reportBugForm" style="padding:15px 20px">-->
+    <!--<input type="text" ng-model="description" style="margin-bottom:15px;width:100%" placeholder="问题描述" required=""-->
+    <!--class="form-control"/>-->
+    <!--<div class="input-group">-->
+    <!--<input type="text" id="inputCover" placeholder="选择图片" class="form-control"/>-->
+    <!--<div ng-click="test()" style="cursor:pointer" class="input-group-addon">浏览</div>-->
+    <!--</div>-->
+    <!--<input type="file" id="choose" multiple="multiple" style="display:none" class="form-control"/>-->
+    <!--</form>-->
+
+    <!--动态添加input框-->
+    <form class="form-horizontal">
+        <label class="col-sm-2 control-label">问题反馈:</label>
+
+        <div class="col-sm-10">
+            <div ng-repeat="domain in info.operate">
+                <div class="form-group">
+                <label class="control-label col-sm-1" for="domain{{$index + 1}}">图片{{$index + 1}}</label>
+                <div class="col-sm-9">
+                <!--ng-disabled="!$index"-->
+                <input type="file"
+                onchange='angular.element(this).scope().fileChanged(this)'
+                id="domain{{$index + 1}}"
+                class="form-control"
+                multiple/>
+
+                </div>
+
+
+                <!--<div class="input-group"><input type="text" ng-model="domain.value" placeholder="图片路径"-->
+                                                <!--class="form-control"/>-->
+                    <!--<div ng-click="chooseImg()" style="cursor:pointer" class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default">选择图片</button>-->
+                    <!--</div>-->
+                    <!--<i ng-click="info.add($index)" class="iconfont icon-add"></i><i-->
+                            <!--ng-click="info.delete($index)" ng-show="$index"-->
+                            <!--class="iconfont icon-delete"></i><i ng-click="clear()" ng-show="!$index"-->
+                                                                <!--class="iconfont icon-delete"></i></div>-->
+                <!--<input type="file" onchange="angular.element(this).scope().fileChanged(this)"-->
+                       <!--id="domain{{$index + 1}}" style="display:none" multiple="multiple"-->
+                       <!--class="form-control"/></div>-->
+        </div>
+            </div>
+
+        <!--<div class="col-sm-2">-->
+        <!--<i class="iconfont icon-add" style="font-size: 23px;color: #4cae4c;margin-right: 10px" ng-disabled="info.operate.length >= 4" ng-click="info.add($index)"></i>-->
+        <!--<i class="iconfont icon-delete" style="font-size: 23px;color: red;"-->
+        <!--ng-click="info.delete($index)" ng-show="$index"></i>-->
+        <!--<i class="iconfont icon-delete" style="font-size: 23px;color: red;" ng-click="info.clear()"-->
+        <!--ng-show="!$index"></i>-->
+        <!--</div>-->
+
+
+        <div class="col-sm-offset-3">
+            <button type="button" class="btn btn-primary" ng-click="info.result()">结果</button>
+        </div>
+
+    </form>
+
+</div>
+<script>
+    angular.module('app', ['ng', 'ui.bootstrap', 'ui.bootstrap.modal'])
+        .controller('testCtrl', function ($scope, $uibModal, $log) {
+            $scope.test = function () {
+                angular.element("input[id=choose]").click();
+            };
+            $scope.fileName = [];
+            angular.element('input[id=choose]').change(function () {
+                var index, j, len, ref, value;
+                $scope.files = document.querySelector('input[id=choose]').files;
+                ref = $scope.files;
+                for (index = j = 0, len = ref.length; j < len; index = ++j) {
+                    value = ref[index];
+                    $scope.fileName[index] = value.name;
+                }
+                return angular.element('input[id=inputCover]').val($scope.fileName);
+            });
+
+
+//            //动态添加input框
+//            $scope.info = {};
+//            $scope.info.operate = [];
+//            // 假设这是数据来源
+//            var simp = [''];
+//            angular.forEach(simp, function (data, index) {
+//                $scope.info.operate.push({key: index, value: data});
+//            });
+//            // 增加
+//            $scope.info.add = function ($index) {
+//                $scope.info.operate.splice($index + 1, 0, {key: $index + 1, value: ""});
+//            };
+//            // 删除
+//            $scope.info.delete = function ($index) {
+//                $scope.info.operate.splice($index, 1);
+//            };
+//            //clear first
+//            $scope.info.clear = function () {
+//                $scope.info.operate.splice(0, 1, {key: 0, value: ""});
+//            };
+//            //append value
+//            $scope.fileChanged = function (element) {
+//                console.log(document.querySelector('input[type=file]').files[0]);
+//                var index = element.id.charAt(element.id.length - 1);
+//                $scope.info.operate[index - 1].value = element.files[0].name;
+//                $scope.$apply();
+//            };
+//            // 结果
+//            $scope.info.result = function () {
+//                console.log($scope.info.operate)
+//            };
+//
+//            $scope.chooseImg = function () {
+//                angular.element('input[type=file]').click()
+//            }
+        })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style type="text/css">
+
+        .box {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .box i, .box .info {
+            display: block;
+            width: 46px;
+            height: 46px;
+            border-radius: 46px;
+        }
+
+        .box .icon {
+            position: absolute;
+            top: 0;
+            line-height: 46px;
+            text-align: center;
+            background: #eee;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .box .info {
+            position: absolute;
+            top: 46px;
+            z-index: 2;
+            background: #4d4d4d;
+            color: #fff;
+            text-align: center;
+            line-height: 46px;
+            -webkit-transition: top .2s ease-in;
+            -moz-transition: top .2s ease-in;
+            transition: top .2s ease-in;
+        }
+
+        /*用样式实现*/
+        /*.box:hover > .info {*/
+            /*top: 0;*/
+        /*}*/
+
+
+    </style>
+</head>
+<body>
+<div class="box" onmouseover="this.childNodes[3].style.top=0" onmouseleave="this.childNodes[3].style.top=''">
+    <i class="icon">A</i>
+    <div class="info">服装</div>
+</div>
+
+<button type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+</button>
+<form class="form-inline">
+    <div class="form-group has-feedback">
+
+        <input type="text" class="form-control" id="inputSuccess4">
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    </div>
+</form>
+
+<!--<img onmousemove="this.style.height='180px'" onmouseout="this.style.height='100px'" border="0" src="image/1.jpg" alt="Smiley" >-->
+</body>
+</html>
